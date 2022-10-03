@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               SizedBox(height: 80,),
-              Center(child: CustomButton(onTap:()=> print('lo hicimos!!'), backgroundColor: Colors.redAccent, iconPath: 'assets/location_icon.png',text: 'somos programadores',isEnabled: true,textColor: Colors.limeAccent,)),
+              Center(child: CustomButton(text: 'gabo',onTap:()=> print('lo hicimos!!'), backgroundColor: Colors.redAccent, isEnabled: true,textColor: Colors.limeAccent,)),
             ],
           ),
         ),
@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class CustomButton extends StatelessWidget{
   String? text;
-  Color? textColor;
+  Color textColor;
   Color? iconColor;
   Color? backgroundColor;
   Color? borderColor;
@@ -94,7 +94,7 @@ class CustomButton extends StatelessWidget{
   String? iconPath;
   bool? isPrimary;
   Function()? onTap;
-  bool? isEnabled;
+  bool isEnabled;
   ButtonStyle? buttonStyle;
 
   CustomButton({Key? key, this.text, this.iconData, this.iconPath, this.backgroundColor, this.borderColor,this.isPrimary = true,this.onTap,this.isEnabled = true, this.textColor= Colors.white}) : super(key: key){
@@ -102,7 +102,7 @@ class CustomButton extends StatelessWidget{
     borderColor ??= backgroundColor;
     buttonStyle =  ElevatedButton.styleFrom(
        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-       elevation:10,
+       elevation:2,
        primary:backgroundColor,
     );
   }
@@ -110,17 +110,41 @@ class CustomButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: isEnabled! ? onTap : null,
+        onPressed: isEnabled ? onTap : null,
         style: buttonStyle,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              iconData == null ? iconPath == null ?const SizedBox():ImageIcon(AssetImage('$iconPath'),color: iconColor,) : Icon(iconData),
-              const SizedBox(width: 10,),
-              text != null ? Text(text!,style: TextStyle(color: textColor),) :const SizedBox(),
+              _icon(iconData,iconPath,iconColor!),
+              _separator(),
+              _text(text, textColor),
             ],
           ),
         ));
-  }}
+  }
+  _icon(IconData? iconData,String? iconPath,Color iconColor){
+    return iconData == null
+        ? iconPath == null
+          ? const SizedBox()
+          : ImageIcon(AssetImage(iconPath),color: iconColor,)
+        : Icon(iconData,color: iconColor,);
+  }
+
+  _separator(){
+   if( (iconPath != null || iconData!=null ) && text != null ){
+     return const SizedBox(width: 10,);
+   }
+   else {
+     return const SizedBox();
+   }
+  }
+
+  _text(String? text, Color textColor){
+   return text != null
+       ? Text(text, style:TextStyle(color: textColor))
+       : const SizedBox();
+  }
+}
+
