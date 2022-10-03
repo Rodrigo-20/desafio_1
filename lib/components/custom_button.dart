@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   String? text;
   Color textColor;
+  IconData? iconData;
+  String? iconPath;
   Color? iconColor;
   Color? backgroundColor;
   Color? borderColor;
-  IconData? iconData;
-  String? iconPath;
-  bool? isPrimary;
   Function()? onTap;
   bool isEnabled;
   ButtonStyle? buttonStyle;
