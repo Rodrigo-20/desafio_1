@@ -72,15 +72,36 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body:
       Container(
-        color: Colors.blue,
+        color: Colors.lightGreenAccent,
         child: Column(
           children: [
             SizedBox(height: 80,),
-            Center(child: CustomButton(text: 'gabo',
+            Center(child: CustomButton(text: 'Finalizar tarea',
               onTap: () => print('lo hicimos!!'),
-              backgroundColor: Colors.redAccent,
+              textColor: Colors.orangeAccent,
+              borderColor: Colors.orangeAccent,
+              backgroundColor: Colors.white,
               isEnabled: true,
-              textColor: Colors.limeAccent,)),
+              padding: 12,
+             )),
+            SizedBox(height: 40,),
+            CustomButton(text: 'Asignar tarea',
+            iconData: Icons.add_circle_outlined,
+            onTap: () => print('lo hicimos!!'),
+            backgroundColor: Colors.orange,
+            isEnabled: true,
+            textColor: Colors.white,
+              padding: 26,
+
+            ),
+            SizedBox(height: 40,),
+            CustomButton(text: 'Historial',
+            iconData: Icons.history,
+            onTap: () => print('lo hicimos!!'),
+            backgroundColor: Colors.teal,
+             ),
+            SizedBox(height: 40,),
+            CustomButton(iconData: Icons.delete_rounded,padding: 4,iconColor:Colors.brown ,borderColor: Colors.brown,backgroundColor: Colors.white,)
           ],
         ),
       ),
