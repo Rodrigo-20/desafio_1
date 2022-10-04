@@ -11,27 +11,32 @@ class CustomButton extends StatelessWidget {
   Color? borderColor;
   Function()? onTap;
   bool isEnabled;
+  double padding;
   ButtonStyle? buttonStyle;
 
   CustomButton(
-      {Key? key, this.text, this.iconData, this.iconPath, this.backgroundColor = Colors.blue, this.borderColor, this.onTap, this.isEnabled = true, this.textColor = Colors
-          .white}) : super(key: key) {
+      {Key? key, this.text, this.iconData, this.iconPath,this.iconColor, this.backgroundColor = Colors.blue,
+        this.borderColor, this.onTap, this.isEnabled = true, this.textColor = Colors
+          .white, this.padding = 8.0}) : super(key: key) {
     iconColor ??= textColor;
     borderColor ??= backgroundColor;
     buttonStyle = ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      elevation: 8,
+      side: BorderSide(color: borderColor!, width: 2),
       primary: backgroundColor,
+      padding: EdgeInsets.all(2),
+      minimumSize:Size.zero,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: isEnabled ? onTap : null,
+        onPressed: isEnabled ? onTap??=(){} : null,
         style: buttonStyle,
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.only(left: padding,right: padding, top: 6, bottom: 6) ,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
