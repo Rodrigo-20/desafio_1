@@ -9,23 +9,40 @@ class CustomButton extends StatelessWidget {
   Color? iconColor;
   Color? backgroundColor;
   Color? borderColor;
-  Function()? onTap;
+  Function? onTap;
   bool isEnabled;
-  double padding;
+  EdgeInsets padding;
+  TextStyle? textStyle;
   ButtonStyle? buttonStyle;
 
   CustomButton(
-      {Key? key, this.text, this.iconData, this.iconPath,this.iconColor, this.backgroundColor = Colors.blue,
-        this.borderColor, this.onTap, this.isEnabled = true, this.textColor = Colors
-          .white, this.padding = 8.0}) : super(key: key) {
+      {Key? key,
+        this.text,
+        this.iconData,
+        this.iconPath,
+        this.iconColor,
+        this.backgroundColor = Colors.blue,
+        this.borderColor,
+        this.onTap,
+        this.isEnabled = true,
+        this.textColor = Colors.white,
+        this.padding = const EdgeInsets.only(left: 8,right:8, top: 6, bottom: 6),
+        this.textStyle}) : super(key: key) {
     iconColor ??= textColor;
     borderColor ??= backgroundColor;
+
+    if(textStyle == null ){
+      textStyle = TextStyle(color: textColor);
+    }
+    else {
+     textStyle =  TextStyle(color: textStyle!.color ?? textColor , fontWeight:textStyle!.fontWeight,fontStyle:textStyle!.fontStyle,letterSpacing: textStyle!.letterSpacing);
+    }
     buttonStyle = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 8,
       side: BorderSide(color: borderColor!, width: 2),
-      primary: backgroundColor,
-      padding: EdgeInsets.all(2),
+      backgroundColor: backgroundColor,
+      padding:const  EdgeInsets.all(2),
       minimumSize:Size.zero,
     );
   }
@@ -33,26 +50,26 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: isEnabled ? onTap??=(){} : null,
+        onPressed: isEnabled ? ()=> onTap??=(){} : null,
         style: buttonStyle,
         child: Padding(
-          padding: EdgeInsets.only(left: padding,right: padding, top: 6, bottom: 6) ,
+          padding: padding,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _icon(iconData, iconPath, iconColor!),
+              _icon(),
               _separator(),
-              _text(text, textColor),
+              _text(),
             ],
           ),
         ));
   }
 
-  _icon(IconData? iconData, String? iconPath, Color iconColor) {
+  _icon() {
     return iconData == null
         ? iconPath == null
-        ? const SizedBox()
-        : ImageIcon(AssetImage(iconPath), color: iconColor,)
+        ? const SizedBox.shrink()
+        : ImageIcon(AssetImage(iconPath!), color: iconColor,)
         : Icon(iconData, color: iconColor,);
   }
 
@@ -61,13 +78,13 @@ class CustomButton extends StatelessWidget {
       return const SizedBox(width: 10,);
     }
     else {
-      return const SizedBox();
+      return const SizedBox.shrink();
     }
   }
 
-  _text(String? text, Color textColor) {
+  _text() {
     return text != null
-        ? Text(text, style: TextStyle(color: textColor))
-        : const SizedBox();
+        ? Text(text!, style: textStyle)
+        : const SizedBox.shrink();
   }
 }
