@@ -79,19 +79,22 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(child: CustomButton(text: 'Finalizar tarea',
               onTap: () => print('lo hicimos!!'),
               textColor: Colors.orangeAccent,
+              textStyle: TextStyle(fontWeight: FontWeight.bold),
               borderColor: Colors.orangeAccent,
               backgroundColor: Colors.white,
               isEnabled: true,
-              padding: 12,
+
              )),
             SizedBox(height: 40,),
             CustomButton(text: 'Asignar tarea',
             iconData: Icons.add_circle_outlined,
+
+            textStyle: TextStyle(fontWeight: FontWeight.bold),
             onTap: () => print('lo hicimos!!'),
             backgroundColor: Colors.orange,
             isEnabled: true,
             textColor: Colors.white,
-              padding: 26,
+
 
             ),
             SizedBox(height: 40,),
@@ -101,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: Colors.teal,
              ),
             SizedBox(height: 40,),
-            CustomButton(iconData: Icons.delete_rounded,padding: 4,iconColor:Colors.brown ,borderColor: Colors.brown,backgroundColor: Colors.white,)
+            CustomButton(iconData: Icons.delete_rounded ,iconColor:Colors.brown ,borderColor: Colors.brown,backgroundColor: Colors.white,)
           ],
         ),
       ),
