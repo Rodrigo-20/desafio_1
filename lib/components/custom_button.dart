@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 class CustomButton extends StatelessWidget {
   String? text;
   Color textColor;
@@ -9,51 +6,41 @@ class CustomButton extends StatelessWidget {
   Color? iconColor;
   Color? backgroundColor;
   Color? borderColor;
-  Function? onTap;
+  Function()? onTap;
   bool isEnabled;
-  EdgeInsets padding;
-  TextStyle? textStyle;
-  ButtonStyle? buttonStyle;
+  EdgeInsets? padding;
+  ButtonStyle? _buttonStyle;
+  TextStyle? _textStyle;
+  FontWeight fontWeight;
+  double letterSpacing;
+  double fontSize;
+
 
   CustomButton(
-      {Key? key,
-        this.text,
-        this.iconData,
-        this.iconPath,
-        this.iconColor,
-        this.backgroundColor = Colors.blue,
-        this.borderColor,
-        this.onTap,
-        this.isEnabled = true,
-        this.textColor = Colors.white,
-        this.padding = const EdgeInsets.only(left: 8,right:8, top: 6, bottom: 6),
-        this.textStyle}) : super(key: key) {
+      {Key? key, this.text, this.iconData, this.iconPath,this.iconColor, this.backgroundColor = Colors.blue,
+        this.borderColor, this.onTap, this.isEnabled = true, this.textColor = Colors
+          .white, this.padding = const EdgeInsets.only(top: 6.0, bottom: 6.0, left: 8.0, right: 8.0), this.fontWeight = FontWeight.normal, this.letterSpacing = 2.0, this.fontSize = 15}) : super(key: key) {
     iconColor ??= textColor;
     borderColor ??= backgroundColor;
-
-    if(textStyle == null ){
-      textStyle = TextStyle(color: textColor);
-    }
-    else {
-     textStyle =  TextStyle(color: textStyle!.color ?? textColor , fontWeight:textStyle!.fontWeight,fontStyle:textStyle!.fontStyle,letterSpacing: textStyle!.letterSpacing);
-    }
-    buttonStyle = ElevatedButton.styleFrom(
+    _textStyle = TextStyle(color: textColor, fontWeight: fontWeight, letterSpacing: letterSpacing, fontSize: fontSize);
+    _buttonStyle = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 8,
-      side: BorderSide(color: borderColor!, width: 2),
-      backgroundColor: backgroundColor,
-      padding:const  EdgeInsets.all(2),
+      side: BorderSide(color: isEnabled? borderColor!: Colors.transparent, width: 2),
+      primary: backgroundColor,
+      padding: padding,
       minimumSize:Size.zero,
+      textStyle: _textStyle,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: isEnabled ? ()=> onTap??=(){} : null,
-        style: buttonStyle,
+        onPressed: isEnabled ? onTap??=(){} : null,
+        style: _buttonStyle,
         child: Padding(
-          padding: padding,
+          padding: padding!,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -69,8 +56,8 @@ class CustomButton extends StatelessWidget {
     return iconData == null
         ? iconPath == null
         ? const SizedBox.shrink()
-        : ImageIcon(AssetImage(iconPath!), color: iconColor,)
-        : Icon(iconData, color: iconColor,);
+        : ImageIcon(AssetImage(iconPath!), color: iconColor, size: fontSize,)
+        : Icon(iconData, color: iconColor, size: fontSize,);
   }
 
   _separator() {
@@ -84,7 +71,7 @@ class CustomButton extends StatelessWidget {
 
   _text() {
     return text != null
-        ? Text(text!, style: textStyle)
-        : const SizedBox.shrink();
+        ? Text(text!, style: _textStyle)
+        : const SizedBox();
   }
 }
