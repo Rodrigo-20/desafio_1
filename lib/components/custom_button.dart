@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
   bool isEnabled;
   EdgeInsets padding;
   TextStyle? textStyle;
-  ButtonStyle? buttonStyle;
+  ButtonStyle? _buttonStyle;
 
   CustomButton(
       {Key? key,
@@ -37,10 +37,10 @@ class CustomButton extends StatelessWidget {
     else {
      textStyle =  TextStyle(color: textStyle!.color ?? textColor , fontWeight:textStyle!.fontWeight,fontStyle:textStyle!.fontStyle,letterSpacing: textStyle!.letterSpacing);
     }
-    buttonStyle = ElevatedButton.styleFrom(
+    _buttonStyle = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 8,
-      side: BorderSide(color: borderColor!, width: 2),
+      side:  BorderSide(color: isEnabled? borderColor!: Colors.transparent, width: 2),
       backgroundColor: backgroundColor,
       padding:const  EdgeInsets.all(2),
       minimumSize:Size.zero,
@@ -51,7 +51,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: isEnabled ? onTap== null? ()=>{} : ()=>onTap!() : null,
-        style: buttonStyle,
+        style: _buttonStyle,
         child: Padding(
           padding: padding,
           child: Row(
