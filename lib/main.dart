@@ -89,11 +89,11 @@ class _MyHomePageState extends State<MyHomePage> {
             CustomButton(text: 'Asignar tarea',
               iconData: Icons.add_circle_outlined,
 
-              textStyle: TextStyle(fontWeight: FontWeight.bold),
-              onTap: () => print('lo hicimos!!'),
+              //textStyle: TextStyle(fontWeight: FontWeight.bold,height: 200,  ),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PageDestiny(),)),
               backgroundColor: Colors.orange,
               isEnabled: true,
-              textColor: Colors.white,
+              textColor: Colors.yellowAccent,
 
 
             ),
@@ -102,7 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
               iconData: Icons.history,
               onTap: () => print('lo hicimos!!'),
               backgroundColor: Colors.teal,
-
               isEnabled: false,
             ),
             SizedBox(height: 40,),
@@ -114,3 +113,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class PageDestiny extends StatelessWidget {
+  const PageDestiny({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: 200,
+        height: 200,
+        color: Colors.redAccent,
+      ),
+    );
+  }
+}

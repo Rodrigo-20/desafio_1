@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -41,7 +41,7 @@ class CustomButton extends StatelessWidget {
       textStyle = TextStyle(color: textColor);
     }
     else {
-     textStyle =  TextStyle(color: textStyle!.color ?? textColor , fontWeight:textStyle!.fontWeight,fontStyle:textStyle!.fontStyle,letterSpacing: textStyle!.letterSpacing);
+     textStyle =  TextStyle(color: textStyle!.color ?? textColor,fontSize: textStyle!.fontSize, fontWeight:textStyle!.fontWeight,fontStyle:textStyle!.fontStyle,letterSpacing: textStyle!.letterSpacing);
     }
     _buttonStyle = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -76,7 +76,7 @@ class CustomButton extends StatelessWidget {
         ? iconPath == null
         ? const SizedBox.shrink()
         : ImageIcon(AssetImage(iconPath!), color: iconColor,)
-        : Icon(iconData, color: iconColor,);
+        : Icon(iconData, color: iconColor,size: textStyle!.fontSize,);
   }
 
   _separator() {
